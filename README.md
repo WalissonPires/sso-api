@@ -47,13 +47,13 @@ npm run start:prod
 
 ## Example - Installation
 
-Run Example Api:
+Example Api:
 ```bash
 cd example/webapi
 npm install
 ```
 
-Run Example Site:
+Example Site:
 ```
 cd example/webapp
 npm install

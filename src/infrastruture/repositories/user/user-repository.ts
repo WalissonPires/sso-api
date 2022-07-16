@@ -1,6 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import { v4 as uuidV4 } from "uuid";
-import { FindByEmailAndPasswordSpec, FindUserBySpec, IUserRepository } from "src/app-domain/common/adapters/user-repository.adapter";
+import { FindByEmailAndPasswordSpec, FindById, FindUserBySpec, IUserRepository } from "src/app-domain/common/adapters/user-repository.adapter";
 import { User } from "src/app-domain/user/entities/user";
 import { BaseRepository, BaseRepositoryFactory } from "src/infrastruture/repositories/base-repository";
 import { User as UserEntity } from "src/infrastruture/database/entities/user.entity";
@@ -36,6 +36,9 @@ export class UserRepository implements IUserRepository {
 
         if (spec instanceof FindByEmailAndPasswordSpec) {
             usersEntity = await this._repository.findBy({ email: spec.email, password: spec.password });
+        }
+        else if (spec instanceof FindById) {
+            usersEntity = await this._repository.findBy({ id: spec.id });
         }
         else
             throw new Error('Spec não implementada');

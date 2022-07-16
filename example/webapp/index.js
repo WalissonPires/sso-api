@@ -67,6 +67,24 @@
             alert('Request fail with status code ' + response.status);
     }
 
+    const callGetUserInfo = async () => {
+
+        const token =  getToken();
+
+        const response = await fetch('http://localhost:3000/account/profile', {
+            headers: {
+                'Authorization': token ? ('Bearer ' + token) : undefined
+            }
+        });
+
+        if (response.status === 200) {
+            const data = await response.json();
+            alert(JSON.stringify(data));
+        }
+        else
+            alert('Request fail with status code ' + response.status);
+    }
+
 
     const init = () => {
 
@@ -86,6 +104,7 @@
 
         document.getElementsByName('btnTestApiPublic')[0].addEventListener('click', callPublicEndpoint);
         document.getElementsByName('btnTestApiProtected')[0].addEventListener('click', callProtectedEndpoint);
+        document.getElementsByName('btnGetUserInfo')[0].addEventListener('click', callGetUserInfo);
     };
 
     window.addEventListener('DOMContentLoaded', init);

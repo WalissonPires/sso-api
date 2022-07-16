@@ -11,6 +11,8 @@ import securityProviders from "../security/provders";
 import repositoriesProviders from "../repositories/provider";
 import appDomainProviders from "../../app-domain/providers";
 import databaseProviders from "../database/provider";
+import { PassportModule } from '@nestjs/passport';
+import { JWtStrategy } from './auth/jwt-strategy';
 
 
 @Module({
@@ -19,6 +21,7 @@ import databaseProviders from "../database/provider";
       rootPath: join(RootDir.getRootDir(), '..', 'wwwroot'),
     }),
     ConfigModule.forRoot(),
+    PassportModule,
     ...typeOrmModule
   ],
   controllers: [ AccountController, TokenController ],
@@ -26,7 +29,8 @@ import databaseProviders from "../database/provider";
     ...securityProviders,
     ...repositoriesProviders,
     ...appDomainProviders,
-    ...databaseProviders
+    ...databaseProviders,
+    JWtStrategy
   ],
 })
 export class AppModule {}

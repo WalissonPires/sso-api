@@ -1,6 +1,6 @@
 import express from 'express';
 import cors from 'cors';
-import { authenticate } from './security.js';
+import { authenticate, UserInfo } from './security';
 
 const app = express();
 
@@ -14,7 +14,7 @@ app.get('/', (req, res) => {
 
 app.get('/protected', authenticate, (req, res) => {
 
-    const userId = req.user.id;
+    const userId = (req.user as UserInfo)?.id;
     res.send({ message: 'This protected endpoint. UserId: ' + userId });
 });
 
